@@ -16,6 +16,7 @@ class FoodController extends Controller
     public function save(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'type_id' => 'required|integer'
         ]);
 
         if(!$validator->fails()) {
@@ -42,6 +43,7 @@ class FoodController extends Controller
     public function edit(Request $request, $id) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'type_id' => 'required|integer'
         ]);
 
         if(!$validator->fails()) {

@@ -80,7 +80,22 @@ class UserController extends Controller
     }
 
     public function edit(Request $request, $id) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users|max:255',
+            'password' => 'required|min:6',
+        ]);
 
+        $user = User::find($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+        return response()->json([
+            'success' => 'success'
+        ]);
     }
 
     public function delete($id) {

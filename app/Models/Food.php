@@ -10,10 +10,11 @@ class Food extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'type_id'
     ];
 
-    public function meals()
+    public function weekdays()
     {
         return $this->belongsToMany(Meal::class);
     }
