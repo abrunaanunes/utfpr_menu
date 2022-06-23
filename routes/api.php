@@ -30,7 +30,6 @@ Route::middleware('auth:sanctum')->group(function() {
         'prefix' => 'user'
     ], function() {
         Route::get('/', [UserController::class, 'index']);
-        Route::post('/', [UserController::class, 'save']);
         Route::get('/{id}', [UserController::class, 'show']);
         Route::put('/{id}', [UserController::class, 'edit']);
         Route::delete('/{id}', [UserController::class, 'delete']);

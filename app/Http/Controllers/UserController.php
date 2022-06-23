@@ -10,7 +10,31 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function login(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json([
+                'error' => $errors
+            ], 400);
+        }
 
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        
+        if (!$validator->fails() && auth()->attempt($credentials)) {
+            $token = auth()->user()->createToken('auth_token')->plainTextToken;
+        
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ]);
+        }
     }
 
     public function register(Request $request) {
@@ -43,11 +67,8 @@ class UserController extends Controller
     }
 
     public function index(Request $request) {
-
-    }
-
-    public function save(Request $request) {
-
+        $users = User::all();
+        return response()->json($users);
     }
 
     public function show($id) {
@@ -63,6 +84,10 @@ class UserController extends Controller
     }
 
     public function delete($id) {
-        
+        $user = User::find($id);
+        $user->delete();
+        return response()->json([
+            'success' => 'success'
+        ]);
     }
 }
