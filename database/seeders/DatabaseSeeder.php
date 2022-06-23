@@ -17,33 +17,6 @@ class DatabaseSeeder extends Seeder
         DB::table('weekdays')->insert([
             [
                 "weekday_name" => "Segunda-Feira (almoço)"
-            ],
-            [
-                "weekday_name" => "Terça-Feira (almoço)"
-            ],
-            [
-                "weekday_name" => "Quarta-Feira (almoço)"
-            ],
-            [
-                "weekday_name" => "Quinta-Feira (almoço)"
-            ],
-            [
-                "weekday_name" => "Sexta-Feira (almoço)"
-            ],
-            [
-                "weekday_name" => "Segunda-Feira (janta)"
-            ],
-            [
-                "weekday_name" => "Terça-Feira (janta)"
-            ],
-            [
-                "weekday_name" => "Quarta-Feira (janta)"
-            ],
-            [
-                "weekday_name" => "Quinta-Feira (janta)"
-            ],
-            [
-                "weekday_name" => "Sexta-Feira (janta)"
             ]
         ]);
 
@@ -65,7 +38,7 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        DB::table('foods')->insert([
+        DB::table('food')->insert([
             [
                 "name" => "Alface",
                 "type_id" => 1
@@ -87,11 +60,19 @@ class DatabaseSeeder extends Seeder
                 "type_id" => 5
             ],
         ]);
-
-        // DB::table('meals')->insert([
-        //     [
-                
-        //     ]
-        // ]);
+        DB::table('food_weekday')->insert([
+            [
+                'food_id' => 1,
+                'weekday_id' => 1
+            ],
+            [
+                'food_id' => 2,
+                'weekday_id' => 1
+            ],
+            [
+                'food_id' => 3,
+                'weekday_id' => 1
+            ]
+        ]);
     }
 }

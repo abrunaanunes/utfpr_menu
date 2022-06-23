@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoodsTable extends Migration
+class CreateFoodWeekdayTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFoodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('foods', function (Blueprint $table) {
+        Schema::create('food_weekday', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->foreignId('type_id')->nullable()->constrained()->onDelete('SET NULL');
+            $table->integer('food_id');
+            $table->integer('weekday_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateFoodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foods');
+        Schema::dropIfExists('food_meal');
     }
 }

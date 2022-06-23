@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User as ModelsUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class User extends Controller
+class UserController extends Controller
 {
     public function login(Request $request) {
 
@@ -28,7 +28,7 @@ class User extends Controller
         }
         
         if (!$validator->fails()) {
-            $user = ModelsUser::create([
+            $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
@@ -48,6 +48,14 @@ class User extends Controller
 
     public function save(Request $request) {
 
+    }
+
+    public function show($id) {
+        $user = User::find($id);
+
+        return response()->json([
+            'data' => $user
+        ]);
     }
 
     public function edit(Request $request, $id) {

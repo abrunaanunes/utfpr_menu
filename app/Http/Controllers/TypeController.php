@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use Illuminate\Http\Request;
-use App\Models\Food as ModelsFood;
 use Illuminate\Support\Facades\Validator;
 
-class Food extends Controller
+class TypeController extends Controller
 {
     public function index(Request $request) {
-        $foods = ModelsFood::all();
-        return response()->json($foods);
+        $types = Type::all();
+        return response()->json($types);
     }
 
     public function save(Request $request) {
@@ -19,16 +19,23 @@ class Food extends Controller
         ]);
 
         if(!$validator->fails()) {
-            $food = ModelsFood::create([
-                'name' => $request->name,
-                'type_id' => $request->type_id
+            $type = Type::create([
+                'name' => $request->name
             ]);
-            $food->save();
+            $type->save();
 
             return response()->json([
                 'success' => 'success'
             ]);
         }
+    }
+
+    public function show($id) {
+        $type = Type::find($id);
+
+        return response()->json([
+            'data' => $type
+        ]);
     }
 
     public function edit(Request $request, $id) {
@@ -37,10 +44,9 @@ class Food extends Controller
         ]);
 
         if(!$validator->fails()) {
-            $food = ModelsFood::find($id);
-            $food->name = $request->name;
-            $food->type_id = $request->type_id;
-            $food->save();
+            $type = Type::find($id);
+            $type->name = $request->name;
+            $type->save();
 
             return response()->json([
                 'success' => 'success'
@@ -49,8 +55,8 @@ class Food extends Controller
     }
 
     public function delete($id) {
-        $food = ModelsFood::find($id);
-        $food->delete();
+        $type = Type::find($id);
+        $type->delete();
         return response()->json([
             'success' => 'success'
         ]);

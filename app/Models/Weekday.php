@@ -12,14 +12,13 @@ class Weekday extends Model
     protected $fillable = [
         'weekday_name'
     ];
+    
+    protected $with = [
+        'foods',
+    ];
 
-    public function weekday()
+    public function foods()
     {
-        return $this->hasOne(Weekday::class);
-    }
-
-    public function meal()
-    {
-        return $this->belongsTo(Meal::class);
+        return $this->belongsToMany(Food::class);
     }
 }
